@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #RAG for medical chatbot
 
 
@@ -19,3 +20,5 @@ conda activate mchatbot
 ```bash
 pip install -r requirements.txt
 ```
+=======
+RAG for medical chatbot
