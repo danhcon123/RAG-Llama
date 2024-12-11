@@ -163,3 +163,5 @@ cython_debug/
 
 #Llama2
 model/llama-2-7b-chat.ggmlv3.q4_0.bin
+The_GALE_ENCYCLOPEDIA_of_MEDICINE_SECOND.pdf
+.env
