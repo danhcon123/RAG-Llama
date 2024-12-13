@@ -1,8 +1,8 @@
-#RAG for medical chatbot
+RAG for medical chatbot
+---
 
-
-##Set up
-
+Set up
+---
 create virtual environment
 
 ```bash
@@ -28,3 +28,9 @@ Create a .env file in the root directory and add your Pinecone (vector data base
 ```ini
 PINECONE_API_KEY= "XXXXXXXXXXXXXXXXXXXX"
 ``` 
+
+Create your own Vector database
+
+```bash
+python3 store_index.py
+```
