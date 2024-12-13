@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Medical Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="{{ url_for('static', filename='images/doctor.png') }}" alt="Doctor Logo" class="doctor-logo">            <h1>Medical Assistant</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="chat-container">
+            <!-- Example Messages -->
+             {% for msg in messages %}
+            <div class="message {{ msg.sender }}-message">
+                <div class="avatar {{ msg.sender}}-avatar">
+                    <img src="{{ url_for('static', filename='images/' + msg.avatar) }}" alt="{{ msg.sender }}">
+                </div>
+                <div class="message-text">
+                    {{ msg.text }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer>
+        <form class="message-input-form">
+            <input type="text" placeholder="Type your message here..." name="message" required />
+            <button type="submit">Send</button>
+        </form>
+    </footer>
+</body>
+</html>

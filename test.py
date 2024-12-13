@@ -101,6 +101,7 @@ Helpful answer:
 print(prompt_template)
 
 PROMPT=PromptTemplate(template=prompt_template, input_variables=["context", "question"])
+
 chain_type_kwargs={"prompt":PROMPT}
 
 llm=CTransformers(model="model/llama-2-7b-chat.ggmlv3.q4_0.bin",
