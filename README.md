@@ -1,7 +1,9 @@
-RAG for medical chatbot
+# RAG for medical chatbot
 ---
 
-Set up
+...Definition what's RAG, structure + usecases
+
+## Installation
 ---
 create virtual environment
 
