@@ -9,12 +9,13 @@
 <body>
     <header>
         <div class="header-content">
-            <img src="{{ url_for('static', filename='images/doctor.png') }}" alt="Doctor Logo" class="doctor-logo">            <h1>Medical Assistant</h1>
+            <img src="{{ url_for('static', filename='images/doctor.png') }}" alt="Doctor Logo" class="doctor-logo">            
+            <h1>Medical Assistant</h1>
         </div>
     </header>
 
     <main>
-        <div class="chat-container">
+        <div class="chat-container" id="chat-container">
             <!-- Example Messages -->
              {% for msg in messages %}
             <div class="message {{ msg.sender }}-message">
@@ -30,10 +31,88 @@
     </main>
 
     <footer>
-        <form class="message-input-form">
-            <input type="text" placeholder="Type your message here..." name="message" required />
+        <form id="message-form" class="message-input-form"> 
+            <input type="text" id="user-message" placeholder="Type your message here..." name="message" required />
             <button type="submit">Send</button>
         </form>
     </footer>
+
+
+    <script>
+        document.getElementById("message-form").addEventListener("submit", async function(event){
+            event.preventDefault();// Prevent form submission from reloading the page
+            
+            //Get input value
+            const userInput=document.getElementById("user-message").value;
+            
+            //Append the user message immediately to the chat container
+            const chatContainer=document.getElementById("chat-container");
+            const userMessageHTML=`
+            <div class="message user-message">
+                <div class="message-text">${userInput}</div>
+                <div class="avatar user-avatar">
+                    <img src="{{ url_for('static', filename='images/user.png') }}" alt="User">
+                </div>
+            <div>`;
+            chatContainer.innerHTML+= userMessageHTML;
+            chatContainer.scrollTop=chatContainer.scrollHeight;
+
+            //Clear the input field
+            document.getElementById("user-message").value = "";
+            
+            //Append a wait-message for the bot after 1s
+            let waitMessage;
+            const waitTimeout=setTimeout(() => {
+                waitMessage=document.createElement("div");
+                waitMessage.className="message bot-message wait-message";
+                waitMessage.innerHTML=`
+                    <div class="avatar bot-avatar">
+                    <img src="{{ url_for('static', filename='images/bot.png') }}" alt="Bot">
+                    </div>
+                    <div class="message-text">Thinking...</div>
+                `;
+                chatContainer.appendChild(waitMessage);
+                chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
+            }, 1000); // 1 second delay
+
+            try{
+                //Send the message to the backend
+                const response = await fetch("/",{
+                    method:"POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ message: userInput})
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.statusText}`);
+                }
+
+                // Remove the wait-message once the response is ready
+                clearTimeout(waitTimeout);
+                if (waitMessage) {
+                    chatContainer.removeChild(waitMessage);
+                }
+
+                //Append the bot's response to the chat container
+                const data = await response.json();
+                const botMessageHTML=`
+                    <div class="message bot-message">
+                        <div class="avatar bot-avatar">
+                            <img src="{{ url_for('static', filename='images/bot.png') }}" alt="Bot">
+                        </div>
+                        <div class="message-text">${data.answer}</div>
+                    </div>
+                `;
+                chatContainer.innerHTML += botMessageHTML;
+                //chatContainer.insertAdjacentHTML('beforeend', botMessageHTML);
+                //Scroll to the bottom of the chat
+                chatContainer.scrollTop=chatContainer.scrollHeight;
+
+            } catch (error) {
+                console.error("Error during fetch:", error);
+                alert("Something went wrong. Please try again.");
+            }
+    });
+    </script>
 </body>
 </html>

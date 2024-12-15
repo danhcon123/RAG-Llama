@@ -39,14 +39,18 @@ header {
 
 main {
     flex: 1;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
 }
 
 .chat-container {
+    flex: 1; /* Allow the chat container to expand */
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    height: 100%;
+    gap: 10px; /* Add a small gap between messages */
+    padding: 20px; /* Add space at the bottom of the container */
+    /*max-height: 600px; Set a maximum height to prevent overflow */
     overflow-y: auto;
 }
 
@@ -92,6 +96,7 @@ main {
     border-radius: 10px;
     font-size: 0.95rem;
     line-height: 1.4;
+    margin-bottom: 10px;
 }
 
 .bot-message .message-text {
@@ -142,3 +147,15 @@ footer {
     background: #444b8f;
 }
 
+.typing-indicator {
+    display: none;
+    margin: 10px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+.wait-message {
+    opacity: 0.7; /* Make it slightly transparent */
+    font-style: italic; /* Italicize the wait message */
+}
