@@ -48,8 +48,8 @@ main {
     flex: 1; /* Allow the chat container to expand */
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Add a small gap between messages */
-    padding: 20px; /* Add space at the bottom of the container */
+    gap: 15px; /* Add a small gap between messages */
+    padding: 30px; /* Add space at the bottom of the container */
     /*max-height: 600px; Set a maximum height to prevent overflow */
     overflow-y: auto;
 }
@@ -69,8 +69,8 @@ main {
 }
 
 .avatar {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
@@ -91,11 +91,11 @@ main {
 }
 
 .message-text {
-    max-width: 60%;
-    padding: 10px;
+    max-width: 70%;
+    padding: 15px;
     border-radius: 10px;
-    font-size: 0.95rem;
-    line-height: 1.4;
+    font-size: 1.1rem;
+    line-height: 1.5;
     margin-bottom: 10px;
 }
 

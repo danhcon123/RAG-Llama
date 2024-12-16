@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, request, redirect,url_for
 from src.helper import download_huggingface_embeddings
 from src.prompt import *
+from src.prompt import extract_answer
 import os
 import transformers
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
@@ -39,7 +40,7 @@ index_name = "medical-chatbot"
 
 docsearch = LangchainPinecone.from_existing_index(index_name, embeddings) #from existing works with langchain-picone
 #prompt template
-PROMPT=PromptTemplate(template=prompt_template, input_variables=["context", "question"])
+PROMPT=PromptTemplate(template=prompt_template_2, input_variables=["context", "question"])
 
 chain_type_kwargs={"prompt":PROMPT}
 
@@ -121,9 +122,10 @@ def index():
 
         # Process with qa_chain to get the bot response
         result = qa_chain({"query": user_message})
-        bot_response = result["result"]
-        print("Bot Response:", bot_response)
-
+        str_result = result["result"]
+        print("Bot Response:", str_result)
+        #Extract the answer part only
+        bot_response=extract_answer(str_result)
         # Append the bot's response to the messages list
         messages.append({"sender": "bot", "text": bot_response, "avatar": "bot.png"})
 
