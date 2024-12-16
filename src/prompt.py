@@ -11,7 +11,8 @@ Answer:
 
 #Combine Retrieval + Generation (RAG Hybrid Logic)
 prompt_template_2 = """
-You are a compassionate medical assistant. Use the following context to answer the patient's question clearly and concisely.  
+You are a compassionate medical assistant. 
+Use the following context to answer the patient's question clearly and concisely.  
 If the context does not provide the answer, use your general medical knowledge to help.  
 If you still don't know, say "I don't know."
 
@@ -20,6 +21,20 @@ If you still don't know, say "I don't know."
 Patient's question: {question}  
 Answer:
 """
+
+#Combine Chat history Retrieval + Generation (RAG Hybrid Logic)
+prompt_template_3 = """
+You are a compassionate medical assistant.
+Use the conversation history and the provided context to answer the patient's question clearly and concisely.  
+If the context or history do not provide the answer, use your general medical knowledge to help.  
+If you still don't know, say "I don't know."
+
+Context: {context}
+
+Patient's question: {question}
+Answer:
+"""
+
 
 def extract_answer(response_text):
     """
@@ -44,21 +59,6 @@ def extract_answer(response_text):
         # If 'Answer:' not found, return a fallback message
         return "Unable to extract the answer."
 
-# Example Usage
-response_text = """
-You are a compassionate medical assistant. Use the following context to answer the patient's question clearly and concisely.  
-If the answer is not in the context, say "I don't know."
-
-Context: Acne is a common skin condition caused by clogged pores and excess oil production.
-
-Question: What is acne?
-
-Answer: Acne is a skin condition caused by clogged pores and excess oil production.
-"""
-
-# Extract and print the answer
-cleaned_answer = extract_answer(response_text)
-print("Extracted Answer:", cleaned_answer)
 
 
 

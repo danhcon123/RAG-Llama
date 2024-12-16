@@ -17,21 +17,17 @@ from dotenv import load_dotenv
 app = Flask(__name__)
 load_dotenv()
 
-
+MAX_CONVERSATION_MEMORY = 2  # Limit the number of previous messages to remember
 # llama=3 to use llama 3.1-Instruct with 3B
 # llama=2 to use llama 3.2-Instruct with 7B, which support by CTransformers for accellarating
-llama=3
-
+llama = 3
+# Memory for storing conversation history
+PINECONE_API_KEY=os.environ.get('PINECONE_API_KEY')
+embeddings=download_huggingface_embeddings()
 # A list to store the conversation
 messages = [
     {"sender": "bot", "text": "Hello, I’m your medical assistant. How can I help you today?", "avatar": "bot.png"}
 ]
-
-PINECONE_API_KEY=os.environ.get('PINECONE_API_KEY')
-#print(PINECONE_API_KEY)
-
-embeddings=download_huggingface_embeddings()
-
 #Initializing the Pinecone
 pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"])
 
@@ -60,16 +56,6 @@ if llama == 2:
                                        chain_type_kwargs=chain_type_kwargs)
     
 elif llama == 3:
-    # ------------------------------
-    # 2. Device Detection
-    # ------------------------------
-    cuda_available = torch.cuda.is_available()
-    if cuda_available:
-        device = 0  # Typically the first GPU (NVIDIA)
-        print("CUDA is available. Using GPU.")
-    else:
-        device = -1  # CPU
-        print("CUDA not available. Using CPU.")
     # Model setup
     model_name = "meta-llama/Llama-3.2-3B-Instruct"
     # Load tokenizer and model on GPU
@@ -78,8 +64,7 @@ elif llama == 3:
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
             device_map="auto",
-            #device_map = 'cuda',
-            torch_dtype=torch.float16 if cuda_available else torch.float32,
+            torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
             low_cpu_mem_usage=True
         )
         # Create Hugging Face pipeline
@@ -87,10 +72,10 @@ elif llama == 3:
             "text-generation",
             model=model,
             tokenizer=tokenizer,
-            #device=device,
             max_new_tokens=512,
             temperature=0.7
-        )  
+        )
+        #Retrieval + Answer generator Pipeline
         llm = HuggingFacePipeline(pipeline=hf_pipeline)
         qa_chain = RetrievalQA.from_chain_type(
             llm=llm,
@@ -99,14 +84,10 @@ elif llama == 3:
             return_source_documents=True,
             chain_type_kwargs=chain_type_kwargs
         )
-  
+    # Handle the error
     except Exception as e:
         print(f"Error loading model: {e}")
-        # Handle the error or exit gracefully
 
-    # Integrate into LangChain
-    #llm = HuggingFacePipeline(pipeline=hf_pipeline)
-                                       
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -114,18 +95,43 @@ def index():
         # Extract JSON data from the request
         data = request.get_json()
         user_message = data.get('message')
-
         print("User Message:", user_message)
-
         # Append the user message to the messages list
         messages.append({"sender": "user", "text": user_message, "avatar": "user.png"})
-
         # Process with qa_chain to get the bot response
         result = qa_chain({"query": user_message})
+
+        '''
+        #---------------------------------------------------------------------------------------------------
+        # Implementing Short-term memory for the conversation
+        # if using this, the prompt_template_3 should be using -> Line 39  
+        # Line 39 => PROMPT=PromptTemplate(template=prompt_template_3, input_variables=["context", "question"])
+        # This part still need to be adjusted for the output prompt to have the best version
+        #---------------------------------------------------------------------------------------------------
+
+        # Create conversation context by extracting previous messages
+        conversation_history = "\n".join([
+            f"Patient: {msg['text']}" if msg['sender'] == "user" else f"Assistant: {msg['text']}"
+            for msg in messages[-4:]  # Limit to last 4 exchanges
+        ])
+        print(conversation_history)
+
+        # Combine conversation history and user question into one query input
+        query_input = f"""
+        Conversation history:
+        {conversation_history}
+
+        Patient's question: {user_message}
+        """
+        # Process with qa_chain to get the bot response
+        result = qa_chain({"query": query_input})
+        '''
+        
         str_result = result["result"]
         print("Bot Response:", str_result)
         #Extract the answer part only
         bot_response=extract_answer(str_result)
+        print("Respond after extracting: ", bot_response)
         # Append the bot's response to the messages list
         messages.append({"sender": "bot", "text": bot_response, "avatar": "bot.png"})
 
@@ -134,7 +140,6 @@ def index():
 
     # For GET request, render the chat page with existing messages
     return render_template('chat.html', messages=messages)
-
 
 if __name__=='__main__':
     app.run(debug=True)
