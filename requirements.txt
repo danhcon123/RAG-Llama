@@ -1,11 +1,15 @@
 ctransformers
+transformers
 sentence-transformers
+huggingface_hub
 langchain
 langchain-community
+langchain_huggingface
 pinecone-client
 flask
 pypdf
 python-dotenv
 tiktoken
+accelerate==1.2.1
 
 -e .
