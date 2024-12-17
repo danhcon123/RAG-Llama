@@ -20,7 +20,6 @@ load_dotenv()
 MAX_CONVERSATION_MEMORY = 2  # Limit the number of previous messages to remember
 # llama=3 to use llama 3.1-Instruct with 3B
 # llama=2 to use llama 3.2-Instruct with 7B, which support by CTransformers for accellarating
-llama=3
 qa_chain = None  # Initialize qa_chain
 # Memory for storing conversation history
 PINECONE_API_KEY=os.environ.get('PINECONE_API_KEY')
@@ -34,60 +33,45 @@ pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"])
 
 # Define the Pinecone index
 index_name = "medical-chatbot"
-
+# Init your Pinecone data base 
 docsearch = LangchainPinecone.from_existing_index(index_name, embeddings) #from existing works with langchain-picone
-#prompt template
+# Load your Prompt template
 PROMPT=PromptTemplate(template=prompt_template_2, input_variables=["context", "question"])
-
 chain_type_kwargs={"prompt":PROMPT}
 
 
-#If you dont have GPU and want to run this on CPU, then get rid the bracket which comment this part and using this model
-#and the CTransformers to run this model on CPU, this will be more ideal.
-if llama == 2:
-    llm=CTransformers(model="model/llama-2-7b-chat.ggmlv3.q4_0.bin",
-                    model_type="llama",
-                    config={'max_new_tokens' : 512,#Input token from lama is 4096
-                            'temperature': 0.4})
-    
-    qa_chain = RetrievalQA.from_chain_type(llm=llm,
-                                       chain_type="stuff",
-                                       retriever=docsearch.as_retriever(search_kwargs={'k':1}),
-                                       return_source_documents=True,
-                                       chain_type_kwargs=chain_type_kwargs)
-    
-elif llama == 3:
-    # Model setup
-    model_name = "meta-llama/Llama-3.2-3B-Instruct"
-    # Load tokenizer and model on GPU
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    try:
-        model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            device_map="auto",
-            torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
-            low_cpu_mem_usage=True
-        )
-        # Create Hugging Face pipeline
-        hf_pipeline = pipeline(
-            "text-generation",
-            model=model,
-            tokenizer=tokenizer,
-            max_new_tokens=512,
-            temperature=0.7
-        )
-        #Retrieval + Answer generator Pipeline
-        llm = HuggingFacePipeline(pipeline=hf_pipeline)
-        qa_chain = RetrievalQA.from_chain_type(
-            llm=llm,
-            chain_type="stuff",
-            retriever=docsearch.as_retriever(search_kwargs={'k':2}),
-            return_source_documents=True,
-            chain_type_kwargs=chain_type_kwargs
-        )
-    # Handle the error
-    except Exception as e:
-        print(f"Error loading model: {e}")
+# Model setup
+model_name = "meta-llama/Llama-3.2-3B-Instruct"
+# Load tokenizer and model
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+try:
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        device_map="auto",
+        torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+        low_cpu_mem_usage=True
+    )
+    # Create Hugging Face pipeline
+    hf_pipeline = pipeline(
+        "text-generation",
+        model=model,
+        tokenizer=tokenizer,
+        max_new_tokens=512,
+        temperature=0.7
+    )
+    #Retrieval + Answer generator Pipeline
+    llm = HuggingFacePipeline(pipeline=hf_pipeline)
+    qa_chain = RetrievalQA.from_chain_type(
+        llm=llm,
+        chain_type="stuff",
+        retriever=docsearch.as_retriever(search_kwargs={'k':2}),
+        return_source_documents=True,
+        chain_type_kwargs=chain_type_kwargs
+    )
+# Handle the error
+except Exception as e:
+    print(f"Error loading model: {e}")
 
 
 @app.route("/", methods=['GET', 'POST'])

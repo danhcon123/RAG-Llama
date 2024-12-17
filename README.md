@@ -28,6 +28,7 @@ pip install -r requirements.txt
 
 5. (optional) Download the LLama2-Instruct-q4 model for this project from following link and put it in the directory \model :
 https://huggingface.co/shrestha-prabin/llama-2-7b-chat.ggmlv3.q4_0/tree/main 
+---
 
 
 ### 2. Set Up Your Own Vector Database with Pinecone
@@ -51,15 +52,60 @@ Replace XXXXXXXXXXXXXXXXXXXX with your actual Pinecone API key.
 Save (Ctrl+S) and Exit (Ctrl+X) the file
 
 4. Create your own Vector database
+To create a vector database using Pinecone, follow these steps:
+    Go to the Pinecone dashboard.
+    Select "Database" > "Indexes".
+    Click on "Create Index". 
 
+In the "Create a New Index" dialog:
+    Name:
+    Give your index a meaningful name (e.g., your-brain-couch).
 
-...
+    Dimensions:
+    The dimension value depends on the model you use to generate embeddings.
 
+        For example, if you’re using the model [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), it generates embeddings with a 384-dimensional dense vector.
+        In this case, set the dimensions to 384.
+        If you’re using a different model, check the model's documentation to find its embedding dimension and enter that value.
+
+    Metric: The metric to use to retrieve the data
+
+    Cloud and Region:
+    Choose your preferred cloud provider and region. Note that Pinecone offers 2GB of free storage for your vector data.
+
+    Create the Index:
+    Click "Create Index" to finalize the setup.
+
+5. Modify the "store_index.py" script to access to your data base
+```bash
+index_name = "medical-chatbot" # To have the same name as your index name
+if index_name not in [index.name for index in pc.list_indexes()]:
+    pc.create_index(
+        name=index_name,
+        dimension=384,  # Dimension for 'all-MiniLM-L6-v2' embeddings
+        metric="cosine", # Your metric to use for retrieving vectors
+        spec=ServerlessSpec(
+            cloud="aws",  # Adjust your server
+            region="us-east-1")  # Adjust your region
+    )
+```
+
+6. Add Your PDF Files to the Data Directory
+    To build your knowledge base, place your .pdf files into the data directory.
+    For example: in my case, i want to have a brain couch, then i feed some books that has to do with brain health, clinical pyschology, neuronlogie and psychologie to make my database have a big knowledge in this area
+```bash
+/data
+    ├── brain_health.pdf
+    ├── psychology.pdf
+    ├── neurology.pdf
+```
+
+7. Start generate Embeddings and store in your own Pinecone vectordatabase
 ```bash
 python3 store_index.py
 ```
+---
 
-...
 
 ### 3. Download LLama Llama-3.2-3B-Instruct Model
 
