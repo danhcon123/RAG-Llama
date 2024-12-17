@@ -4,29 +4,33 @@
 
 ...Definition what's RAG, structure + usecases
 
-## Installation🚀
+## Installation instruction🚀
 ---
-create virtual environment
 
+### Set up directory
+1. Clone and Access the repository
 ```bash
-conda create -n mchatbot python=3.10 -y
+git clone https://github.com/danhcon123/RAG-with-Llama2-as-medical-chatbot-.git
+cd RAG-with-Llama2-as-medical-chatbot-
 ```
+
+2. Create and Activate a Virtual Environment
 ```bash
-conda activate mchatbot
+python3.10 -m chatbot myenv
+source chatbot/bin/activate
 ```
+3. Follow the [PyTorch Installation Instructions](https://pytorch.org/get-started/locally/) to install the appropriate version for your system
 
-Install pytorch using the following links:
-
-https://pytorch.org/get-started/locally/
-
-Install all requirement packages:
+4. Install all the required dependencies from the requirements.txt file:
 ```bash
 pip install -r requirements.txt
 ```
 
-Download the LLama2-Instruct-q4 model for this project from following link and put it in the directory \model :
+5. (optional )Download the LLama2-Instruct-q4 model for this project from following link and put it in the directory \model :
 
 https://huggingface.co/shrestha-prabin/llama-2-7b-chat.ggmlv3.q4_0/tree/main 
+
+### Set up your own vector data base with Pinecone
 
 Create your own Pinecone data base and API KEY under following links:
 
