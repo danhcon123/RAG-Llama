@@ -53,8 +53,9 @@ def extract_answer(response_text):
         # Extract everything after 'Answer:'
         answer = response_text[answer_start + len("Answer:"):].strip()
         # Remove any additional prompt template content (if generated accidentally)
-        clean_answer = answer.split("\n")[0].strip()  # Take the first line after 'Answer:'
-        return clean_answer
+        #clean_answer = answer.split("\n")[0].strip()  # Take the first line after 'Answer:'
+        #return clean_answer
+        return answer
     else:
         # If 'Answer:' not found, return a fallback message
         return "Unable to extract the answer."
