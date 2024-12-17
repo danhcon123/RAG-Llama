@@ -18,7 +18,7 @@ embeddings=download_huggingface_embeddings()
 pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"])
 
 # Define the Pinecone index
-index_name = "medical-chatbot"
+index_name = "my-brain-couch"
 if index_name not in [index.name for index in pc.list_indexes()]:
     pc.create_index(
         name=index_name,

@@ -32,7 +32,7 @@ messages = [
 pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"])
 
 # Define the Pinecone index
-index_name = "medical-chatbot"
+index_name = "my-brain-couch"
 # Init your Pinecone data base 
 docsearch = LangchainPinecone.from_existing_index(index_name, embeddings) #from existing works with langchain-picone
 # Load your Prompt template
@@ -65,7 +65,7 @@ try:
     qa_chain = RetrievalQA.from_chain_type(
         llm=llm,
         chain_type="stuff",
-        retriever=docsearch.as_retriever(search_kwargs={'k':2}),
+        retriever=docsearch.as_retriever(search_kwargs={'k':3}),
         return_source_documents=True,
         chain_type_kwargs=chain_type_kwargs
     )
