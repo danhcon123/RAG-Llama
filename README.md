@@ -1,4 +1,4 @@
-# RAG for chatbot - Llama Neurology assistant 🧠💬➕🏥
+# RAG for chatbot - Llama Neurology assistant 🦙🧠💬
 
 <div align="center">
     <img src="./static/images/top.PNG" alt="RAG Architecture" />
