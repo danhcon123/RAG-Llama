@@ -23,6 +23,8 @@ Whether it’s tackling complex topics 🧠, organizing daily tasks ✅, or expl
 
 For full installation instructions, see INSTALL.md. 🚀
 
+
+
 # RAG
 ---
 
@@ -40,6 +42,8 @@ Use Cases:
     ✅ Knowledge Assistants: Assisting professionals with real-time information retrieval.  
 
 RAG enhances generative AI by grounding outputs in up-to-date, factual information.
+
+
 
 # Challenges and Optimizations
 ---
@@ -66,10 +70,12 @@ When testing on a system with an NVIDIA RTX A4000 ⚡, inference time dropped to
     ...Definition what's RAG, structure + usecases
 
 
+
 # Installation
 ---
 
 For full installation instructions, see [INSTALL.md](INSTALL.md).
+
 
 
 # Some conversations
