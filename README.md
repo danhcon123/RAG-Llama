@@ -11,12 +11,12 @@ I’ve been working on a small project: a Retrieval Augmented Generation (RAG)-b
 
 The idea is to:  
 
-    ✅ Turn complex neuroscience books into friendly conversations, making exploration less intimidating and more fun.  
-    ✅ Foster interactive, engaging learning that helps you absorb and recall information faster.  
-    ✅ Quickly retrieve learned knowledge to deepen understanding and connect new ideas.  
-    ✅ Transform passive reading into a two-way dialogue, encouraging curiosity and insight.  
-    ✅ Ensure complete privacy: Locally deployed, so your questions and data stay with you and are never stored by others.🛡️  
-    ✅ Customize learning: Tailor the assistant to your specific interests, topics, or data for a more personalized experience.🎯  
+✅ Turn complex neuroscience books into friendly conversations, making exploration less intimidating and more fun.  
+✅ Foster interactive, engaging learning that helps you absorb and recall information faster.  
+✅ Quickly retrieve learned knowledge to deepen understanding and connect new ideas.  
+✅ Transform passive reading into a two-way dialogue, encouraging curiosity and insight.  
+✅ Ensure complete privacy: Locally deployed, so your questions and data stay with you and are never stored by others.🛡️  
+✅ Customize learning: Tailor the assistant to your specific interests, topics, or data for a more personalized experience.🎯  
 
 Want to build your own chatbot to assist with reading and learning? 📚
 Whether it’s tackling complex topics 🧠, organizing daily tasks ✅, or exploring areas of interest 🔍, a RAG-powered assistant can make knowledge more accessible and practical.
@@ -42,7 +42,12 @@ Use Cases:
 RAG enhances generative AI by grounding outputs in up-to-date, factual information.
 
 # About the project
+---
 
+This is just a small project, that i'm plemented to learn about RAG so if u want to use this, u should modify some methods or maybe adding more so the showed "Answer" (answered Prompt) from Llama3.2 would be at it best
+
+## Prompt extractor:
+My extractor located in the 
 ...Definition what's RAG, structure + usecases
 
 
