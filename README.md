@@ -74,7 +74,36 @@ When testing on a system with an NVIDIA RTX A4000 ⚡, inference time dropped to
 # Installation
 ---
 
+<<<<<<< HEAD
 For full installation instructions, see [INSTALL.md](INSTALL.md).
+=======
+
+### 3. Download LLama Llama-3.2-3B-Instruct Model
+
+The model will automatically be downloaded when you run the app.py script, which will be covered in the next section.
+But before you can download the model:
+
+1. Accept Meta LLaMA Terms and Conditions
+    Go to the Meta [LLaMA Responsible Use Guide](https://www.llama.com/responsible-use-guide/).
+    Review and accept the terms and conditions to gain access to the LLaMA model.
+
+2. Generate a Hugging Face Access Token
+    Log in or sign up for a [Hugging Face](https://huggingface.co/) with the same registered email with LLamA Terms and Condition.
+    Create a User Access Token:
+        Click on your profile image (top-right corner).
+        Select "Access Tokens" from the dropdown menu.
+        Click on "Create new token".
+        Choose "Read" as the token type.
+        Give the token a name (e.g., "LLaMA-access").
+        Copy the generated token.
+
+3. Back to cmd window, run the following command to authenticate with Hugging Face:
+    ```bash
+    huggingface-cli
+    ```
+    When prompted, paste the token you copied earlier.
+    Now you should have access to download the model
+>>>>>>> 666123d (readme)
 
 
 
