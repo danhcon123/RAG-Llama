@@ -1,7 +1,10 @@
+torch
 ctransformers
+transformers
 sentence-transformers
 langchain
 langchain-community
+langchain_huggingface
 pinecone-client
 flask
 pypdf

@@ -14,6 +14,12 @@ conda create -n mchatbot python=3.10 -y
 ```bash
 conda activate mchatbot
 ```
+
+Install pytorch using the following links:
+
+https://pytorch.org/get-started/locally/
+
+Install all requirement packages:
 ```bash
 pip install -r requirements.txt
 ```
