@@ -32,4 +32,4 @@ docsearch = LangchainPinecone.from_texts(
     texts=text_chunks,
     embedding=embeddings,
     index_name=index_name
-)
+) 
