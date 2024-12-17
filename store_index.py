@@ -27,8 +27,6 @@ if index_name not in [index.name for index in pc.list_indexes()]:
         spec=ServerlessSpec(cloud="aws", region="us-east-1")  # Adjust your region
     )
 
-index_name = "medical-chatbot"
-
 text_chunks = [t.page_content for t in text_chunks]  # Replace with your text chunk source
 docsearch = LangchainPinecone.from_texts(
     texts=text_chunks,
