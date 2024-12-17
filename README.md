@@ -66,14 +66,17 @@ When testing on a system with an NVIDIA RTX A4000 ⚡, inference time dropped to
     ...Definition what's RAG, structure + usecases
 
 
-## Installation
+# Installation
 ---
 
 For full installation instructions, see [INSTALL.md](INSTALL.md).
 
 
-## Some conversations
+# Some conversations
 ---
 
 Thêm ảnh dô
 
+<div align="center">
+    <img src="./static/images/4.PNG" alt="RAG Architecture" />
+</div>
