@@ -25,11 +25,7 @@ source chatbot/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
-
-5. (optional) Download the LLama2-Instruct-q4 model for this project from following link and put it in the directory \model :
-https://huggingface.co/shrestha-prabin/llama-2-7b-chat.ggmlv3.q4_0/tree/main 
 ---
-
 
 ### 2. Set Up Your Own Vector Database with Pinecone
 
@@ -105,7 +101,6 @@ if index_name not in [index.name for index in pc.list_indexes()]:
 python3 store_index.py
 ```
 ---
-
 
 ### 3. Download LLama Llama-3.2-3B-Instruct Model
 

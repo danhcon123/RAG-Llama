@@ -26,7 +26,7 @@ PINECONE_API_KEY=os.environ.get('PINECONE_API_KEY')
 embeddings=download_huggingface_embeddings()
 # A list to store the conversation
 messages = [
-    {"sender": "bot", "text": "Hello, I’m your medical assistant. How can I help you today?", "avatar": "bot.png"}
+    {"sender": "bot", "text": "Hello, I’m NeuroMate, your neurology assistant. How can I help you today?", "avatar": "bot.png"}
 ]
 #Initializing the Pinecone
 pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"])

@@ -2,10 +2,10 @@ from setuptools import find_packages, setup
 
 
 setup(
-    name = 'Medical Chatbot',
+    name = 'Brain-Couch-Chatbot',
     version= '0.0.0',
-    author= 'Boktiar',
-    author_email= 'entbappy73@gmail.com',
+    author= 'Duc',
+    author_email= 'gauvatich123@gmail.com',
     packages= find_packages(),
     install_requires = []
 )
