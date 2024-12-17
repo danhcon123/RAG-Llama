@@ -36,7 +36,7 @@ index_name = "my-brain-couch"
 # Init your Pinecone data base 
 docsearch = LangchainPinecone.from_existing_index(index_name, embeddings) #from existing works with langchain-picone
 # Load your Prompt template
-PROMPT=PromptTemplate(template=prompt_template_2, input_variables=["context", "question"])
+PROMPT=PromptTemplate(template=prompt_template_1, input_variables=["context", "question"])
 chain_type_kwargs={"prompt":PROMPT}
 
 

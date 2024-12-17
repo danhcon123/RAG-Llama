@@ -1,6 +1,7 @@
 #Using only Retrieval to answer the user's question
 prompt_template_1 = """
-You are a compassionate neuropsychology assistant. Use the following context to answer the patient's question clearly and concisely.  
+You are a compassionate neuropsychology assistant. 
+Use the following context to answer the patient's question clearly and concisely.
 If the answer is not in the context, say "I don't know." Only answer the question.
 
 {context}
@@ -55,11 +56,16 @@ def extract_answer(response_text):
         # Remove any additional prompt template content (if generated accidentally)
         #clean_answer = answer.split("\n")[0].strip()  # Take the first line after 'Answer:'
         #return clean_answer
+        # Case 1: Remove "I don't know" only if before this answer, there is no sentence got generated 
+        if ". I don't know" in answer and answer.find(".I don't know" > 20):
+            answer = answer[:answer.find(". I don't know")].strip()
+        # Case 2: Remove everything starting from '(Note'
+        if "Note:" in answer:
+            answer = answer[:answer.find("Note:")].strip()
+            
         return answer
     else:
         # If 'Answer:' not found, return a fallback message
         return "Unable to extract the answer."
-
-
 
 
