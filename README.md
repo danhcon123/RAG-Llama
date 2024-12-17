@@ -7,7 +7,7 @@
 ## Installation Instruction🚀
 ---
 
-### Set up directory
+### 1. Set up directory
 1. Clone and Access the repository
 ```bash
 git clone https://github.com/danhcon123/RAG-with-Llama2-as-medical-chatbot-.git
@@ -30,7 +30,7 @@ pip install -r requirements.txt
 https://huggingface.co/shrestha-prabin/llama-2-7b-chat.ggmlv3.q4_0/tree/main 
 
 
-### Set Up Your Own Vector Database with Pinecone
+### 2. Set Up Your Own Vector Database with Pinecone
 
 1. Create a Pinecone account by visiting [Pinecone's official website](https://www.pinecone.io/).
 
@@ -61,7 +61,7 @@ python3 store_index.py
 
 ...
 
-### Download LLama Llama-3.2-3B-Instruct Model
+### 3. Download LLama Llama-3.2-3B-Instruct Model
 
 The model will automatically be downloaded when you run the app.py script, which will be covered in the next section.
 But before you can download the model:
@@ -88,5 +88,11 @@ But before you can download the model:
     Now you should have access to download the model
 
 
+## Run the programm 🚀
+---
+
+```bash
+python3 app.py
+```
 
 
