@@ -20,7 +20,8 @@ load_dotenv()
 MAX_CONVERSATION_MEMORY = 2  # Limit the number of previous messages to remember
 # llama=3 to use llama 3.1-Instruct with 3B
 # llama=2 to use llama 3.2-Instruct with 7B, which support by CTransformers for accellarating
-llama = 3
+llama=3
+qa_chain = None  # Initialize qa_chain
 # Memory for storing conversation history
 PINECONE_API_KEY=os.environ.get('PINECONE_API_KEY')
 embeddings=download_huggingface_embeddings()
@@ -100,7 +101,6 @@ def index():
         messages.append({"sender": "user", "text": user_message, "avatar": "user.png"})
         # Process with qa_chain to get the bot response
         result = qa_chain({"query": user_message})
-
         '''
         #---------------------------------------------------------------------------------------------------
         # Implementing Short-term memory for the conversation
