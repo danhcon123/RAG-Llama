@@ -1,4 +1,3 @@
-ctransformers
 transformers
 sentence-transformers
 huggingface_hub
