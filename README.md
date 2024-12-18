@@ -61,49 +61,26 @@ For example:
 Another promising approach is thought chaining 🔗 to produce more accurate responses. However, this increases inference time ⏳ significantly. On my setup with 16GB RAM and an NVIDIA GTX 1080 Ti (6GB) 🖥️, generating a single complete answer takes 3-4 minutes ⏱️. This makes it difficult to implement chaining or introduce an answer evaluator (judger) 🧐.
 
 When testing on a system with an NVIDIA RTX A4000 ⚡, inference time dropped to 2-3 seconds per answer 🚀. Depending on your hardware, you might want to consider using a smaller or larger model to balance performance ⚖️ and accuracy 🎯.
+ 
 
-## Phần này mai a xem lại đã nghen 
-    ## Prompt extractor:
-    [Llama3.2-3B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct) is really really good at giving out answer, when integrating in RAG-based system. But the output prompt from Llama always include the Prompt_Template that i give in itself and the retrieval context, and also some extra automatically generated questions and answers. So the model doesnt only stop with giving the answer from the user question
+⚠️ Prompt:  
+1. Improve the Quality of Responses: To generate better answers, add more data to your vector database. Ensure the data is relevant to the subject your chatbot is designed for. For example, if your chatbot focuses on brain health, include documents related to neurology, clinical psychology, or brain-related research.
 
-    My extractor located in the 
-    ...Definition what's RAG, structure + usecases
+2. Customize the Prompt Template: Modify the prompt_template files (1, 2, 3) located in src/prompt.py to suit your chatbot's desired role.  
+For instance, you can instruct the chatbot to:
+    "Act as a teacher explaining complex topics."
+    "Act as a monk offering wisdom and guidance."
+    "Act as a financial advisor providing investment tips."
+Tailoring the prompt to your chatbot’s role will enhance its ability to deliver contextually accurate and meaningful responses.
 
+⚠️ Prompt Extractor
+The [Llama3.2-3B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct) model performs really well when integrated into a RAG-based system. However, the output always includes:  
+    The original Prompt_Template provided,
+    The retrieval context, and
+    Automatically generated questions and answers.
 
-
-# Installation
----
-
-<<<<<<< HEAD
-For full installation instructions, see [INSTALL.md](INSTALL.md).
-=======
-
-### 3. Download LLama Llama-3.2-3B-Instruct Model
-
-The model will automatically be downloaded when you run the app.py script, which will be covered in the next section.
-But before you can download the model:
-
-1. Accept Meta LLaMA Terms and Conditions
-    Go to the Meta [LLaMA Responsible Use Guide](https://www.llama.com/responsible-use-guide/).
-    Review and accept the terms and conditions to gain access to the LLaMA model.
-
-2. Generate a Hugging Face Access Token
-    Log in or sign up for a [Hugging Face](https://huggingface.co/) with the same registered email with LLamA Terms and Condition.
-    Create a User Access Token:
-        Click on your profile image (top-right corner).
-        Select "Access Tokens" from the dropdown menu.
-        Click on "Create new token".
-        Choose "Read" as the token type.
-        Give the token a name (e.g., "LLaMA-access").
-        Copy the generated token.
-
-3. Back to cmd window, run the following command to authenticate with Hugging Face:
-    ```bash
-    huggingface-cli
-    ```
-    When prompted, paste the token you copied earlier.
-    Now you should have access to download the model
->>>>>>> 666123d (readme)
+This behavior causes the model to go beyond answering the user's query, resulting in verbose or unwanted outputs. To address this, I implemented a prompt extractor that cleans and refines the model's output to improve the results displayed on the UI.  
+Important: Depending on your project requirements, you may need to customize or enhance this extractor to better suit your use case and deliver cleaner responses.
 
 
 
@@ -111,7 +88,18 @@ But before you can download the model:
 ---
 
 Thêm ảnh dô
+<div align="center">
+    <img src="./static/images/2.PNG" alt="RAG Architecture" />
+</div>
 
 <div align="center">
     <img src="./static/images/4.PNG" alt="RAG Architecture" />
 </div>
+
+
+
+# Installation
+---
+
+For full installation instructions, see [INSTALL.md](INSTALL.md).
+
