@@ -86,7 +86,6 @@ Important: Depending on your project requirements, you may need to customize or 
 
 # Some conversations
 
-Thêm ảnh dô
 <div align="center">
     <img src="./static/images/2.PNG" alt="RAG Architecture" />
 </div>
@@ -103,8 +102,8 @@ Thêm ảnh dô
 ---
 
 
-# Installation
 
+# Installation
 
 For full installation instructions, see [INSTALL.md](INSTALL.md).
 
