@@ -67,9 +67,9 @@ When testing on a system with an NVIDIA RTX A4000 ⚡, inference time dropped to
 2. Customize the Prompt Template: Modify the prompt_template files (1, 2, 3) located in src/prompt.py to suit your chatbot's desired role.  
 For instance, you can instruct the chatbot to:
 
-    "Act as a teacher explaining complex topics."
-    "Act as a monk offering wisdom and guidance."
-    "Act as a financial advisor providing investment tips."
+    "Act as a teacher explaining complex topics."  
+    "Act as a monk offering wisdom and guidance."  
+    "Act as a financial advisor providing investment tips."  
 
 Tailoring the prompt to your chatbot’s role will enhance its ability to deliver contextually accurate and meaningful responses.
 
