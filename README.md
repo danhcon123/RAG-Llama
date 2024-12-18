@@ -27,8 +27,7 @@ For full installation instructions, see INSTALL.md. 🚀
 # RAG
 
 <div align="center">
-    <img src="./static/images/RAG.PNG" alt="RAG Architecture" title="RAG Architecture Diagram" />
-    <p style="font-size: small;">Source: <a href="https://valueminer.eu/de/retrieval-augmented-generation-rag" target="_blank">ValueMiner - Retrieval Augmented Generation (RAG)</a></p>
+    <img src="./static/images/RAG.PNG" alt="RAG Architecture" title="RAG Architecture Diagram"/>
 </div>
 
 Retrieval-Augmented Generation (RAG) is an AI framework that combines retrieval-based methods with generative models. It retrieves relevant external knowledge (e.g., documents) to improve the quality, accuracy, and reliability of generated responses.
