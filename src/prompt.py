@@ -6,7 +6,7 @@ If the answer is not in the context, say "I don't know." Only answer the questio
 
 {context}
 
-Patient's question: {question}  
+User's question: {question}  
 Answer:
 """
 
@@ -19,7 +19,7 @@ If you still don't know, say "I don't know."
 
 {context}
 
-Patient's question: {question}  
+User's question: {question}  
 Answer:
 """
 
@@ -27,12 +27,11 @@ Answer:
 prompt_template_3 = """
 You are a compassionate neuropsychology assistant.
 Use the conversation history and the provided context to answer the patient's question clearly and concisely.  
-If the context or history do not provide the answer, use your general medical knowledge to help.  
-If you still don't know, say "I don't know."
+If you don't know, say "I don't know."
 
 Context: {context}
 
-Patient's question: {question}
+User's question: {question}
 Answer:
 """
 
@@ -53,16 +52,12 @@ def extract_answer(response_text):
     if answer_start != -1:  # 'Answer:' was found
         # Extract everything after 'Answer:'
         answer = response_text[answer_start + len("Answer:"):].strip()
-        # Remove any additional prompt template content (if generated accidentally)
-        #clean_answer = answer.split("\n")[0].strip()  # Take the first line after 'Answer:'
-        #return clean_answer
         # Case 1: Remove "I don't know" only if before this answer, there is no sentence got generated 
-        if ". I don't know" in answer and answer.find(".I don't know" > 20):
+        if ". I don't know" in answer and answer.find(".I don't know") > 20:
             answer = answer[:answer.find(". I don't know")].strip()
         # Case 2: Remove everything starting from '(Note'
         if "Note:" in answer:
             answer = answer[:answer.find("Note:")].strip()
-            
         return answer
     else:
         # If 'Answer:' not found, return a fallback message

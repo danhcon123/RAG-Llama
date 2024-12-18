@@ -95,7 +95,7 @@ def index():
 
         # Create conversation context by extracting previous messages
         conversation_history = "\n".join([
-            f"Patient: {msg['text']}" if msg['sender'] == "user" else f"Assistant: {msg['text']}"
+            f"User: {msg['text']}" if msg['sender'] == "user" else f"Assistant: {msg['text']}"
             for msg in messages[-4:]  # Limit to last 4 exchanges
         ])
         print(conversation_history)
@@ -105,7 +105,7 @@ def index():
         Conversation history:
         {conversation_history}
 
-        Patient's question: {user_message}
+        Users's question: {user_message}
         """
         # Process with qa_chain to get the bot response
         result = qa_chain({"query": query_input})
