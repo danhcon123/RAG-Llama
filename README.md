@@ -89,17 +89,16 @@ Important: Depending on your project requirements, you may need to customize or 
 <div align="center">
     <img src="./static/images/2.PNG" alt="RAG Architecture" />
 </div>
----
+
 
 <div align="center">
     <img src="./static/images/3.PNG" alt="RAG Architecture" />
 </div>
----
+
 
 <div align="center">
     <img src="./static/images/5.PNG" alt="RAG Architecture" />
 </div>
----
 
 
 
